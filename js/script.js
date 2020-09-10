@@ -85,7 +85,7 @@ function generateTitleLinks() {
 
         /*insert link into hmtl variable */
         html = html + linkHTML;
-    };
+    }
     titleList.innerHTML = html;
 
     const links = document.querySelectorAll('.titles a');
@@ -93,6 +93,6 @@ function generateTitleLinks() {
         link.addEventListener('click', titleClickHandler);
     }
     console.log(links);
-};
+}
 
 generateTitleLinks();
