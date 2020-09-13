@@ -235,6 +235,7 @@ function generatorAuthors() {
 }
 generatorAuthors();
 
+
 function authorClickHandler(event) {
 
   /* prevent default action for this event */
@@ -242,7 +243,7 @@ function authorClickHandler(event) {
 
   /* make new constant named "clickedElement" and give it the value of "this" */
   const clickedElement = this;
-  // console.log('Link was clicked!');
+  console.log('Link was clicked! awsome');
 
   /* make a new constant "href" and read the attribute "href" of the clicked element */
   const href = clickedElement.getAttribute('href');
@@ -252,7 +253,7 @@ function authorClickHandler(event) {
   console.log(author);
 
   /* find all tag links with class active */
-  const activeAuthorsLinks = clickedElement.querySelectorAll('a.active[href^="#author-"]');
+  const activeAuthorsLinks = clickedElement.querySelectorAll('a.active[href^="#author-"]');// href zaczynajace się od #author
   console.log(activeAuthorsLinks);
 
   /* START LOOP: for each active author link */
