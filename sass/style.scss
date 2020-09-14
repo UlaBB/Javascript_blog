@@ -84,7 +84,29 @@ body {
     font-weight: bold;
   }
 }
-
+.tags{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  li{
+    margin: 5px;
+  }
+}
+.tag-size-5{
+  font-size: 20px;
+  color: red;
+  font-weight: bold;
+}
+.tag-size-2{
+  font-size: 18px;
+  color: rgb(68, 0, 255);
+  font-weight: 400;
+}
+.tag-size-1{
+  font-size: 12px;
+  color: rgb(0, 255, 13);
+  font-weight: 600;
+}
 .list-horizontal {
   li {
     display: inline-block;
