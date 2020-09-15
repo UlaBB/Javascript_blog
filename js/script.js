@@ -1,6 +1,15 @@
 
 'use strict';
 
+
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+  authorsListLink: Handlebars.compile(document.querySelector('#template-authors-list-link').innerHTML)
+};
+
 const opt = {
   articleSelector: '.post',
   titleSelector: '.post-title',
@@ -81,7 +90,10 @@ function generateTitleLinks(customSelector = '') {
     // console.log('Title of article', articleTitle);
 
     /* get the title from the title element */
-    const linkHTML = '<li><a href="#' + articleID + '"><span>' + articleTitle + '</span></a></li>';
+    // const linkHTML = '<li><a href="#' + articleID + '"><span>' + articleTitle + '</span></a></li>';
+
+    const linkHTMLData = { id: articleID, title: articleTitle };
+    const linkHTML = templates.articleLink(linkHTMLData);
     // console.log(linkHTML);
 
     /* create HTML of the link */
@@ -157,7 +169,12 @@ function generateTags() {
     for (let tag of articleTagsArray) {
 
       /* generate HTML of the link */
-      const tagHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+
+      // const tagHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+
+      const linkHTMLData = { linkTag: tag, title: tag };
+      const tagHTML = templates.tagLink(linkHTMLData);
+      // console.log(tagHTML);
 
       /* add generated code to html variable */
       html = html + tagHTML;
@@ -180,6 +197,7 @@ function generateTags() {
 
     /* END LOOP: for every article: */
   }
+
   /* [NEW] find list of tags in right column */
   const tagList = document.querySelector(opt.tagsListSelector);
   console.log(tagList);
@@ -191,7 +209,8 @@ function generateTags() {
   // tagList.innerHTML = allTags.join(' ');// łączy ele. tablicy w tekst
   // console.log(allTags);
   /* [NEW] create variable for all links HTML code */
-  let allTagsHTML = '';
+  // let allTagsHTML = '';
+  const allTagsData = { tags: [] };
 
 
   /* [NEW] START LOOP: for each tag in allTags */
@@ -204,14 +223,19 @@ function generateTags() {
       '">' +
       tag +
       '</a></li>';
-    allTagsHTML += tagLinkHTML;
+    // allTagsHTML += tagLinkHTML;
+    allTagsData.tags.push({
+      tag: tag,
+      count: allTags[tag],
+      className: calculateTagClass(allTags[tag], tagsParams)
+    });
     console.log('taglinkHTML', tagLinkHTML);
     /*[NEW] END LOOP: for each tag in allTags*/
   }
-
-
   /*[NEW] add html from allTagsHTML to tagList */
-  tagList.innerHTML = allTagsHTML;
+  // tagList.innerHTML = allTagsHTML;
+  tagList.innerHTML = templates.tagCloudLink(allTagsData);
+  console.log(allTagsData);
 }
 generateTags();
 
@@ -320,7 +344,11 @@ function generatorAuthors() {
     // console.log(tagAuthor);
 
     /* generate HTML of the autor link */
-    const linkHTML = '<a href="#author-' + tagAuthor + '">' + 'by ' + tagAuthor + '</a>';
+    // const linkHTML = '<a href="#author-' + tagAuthor + '">' + 'by ' + tagAuthor + '</a>';
+
+    const linkHTMLData = { linkAuthor: tagAuthor, title: tagAuthor };
+    const linkHTML = templates.authorLink(linkHTMLData);
+    // console.log(tagHTML);
 
     /* add generated code to html variable */
     html = html + linkHTML;
@@ -348,15 +376,22 @@ function generatorAuthors() {
   const authorParams = calculateAuthorParams(allAuthors);
   console.log(authorParams);
 
-  let allAuthorsHTML = '';
+  // let allAuthorsHTML = '';
+  const allAuthorsData = { authors: [] };
 
   for (let author in allAuthors) {
     // /* [NEW] generate code of a link and add it to allAuthorsHTML */
-    allAuthorsHTML += '<li><a class="tag-size4" href="#author-' + author + '">' + author + '</a></li> ';
-    const authorLinkHTML = '<li><a href="#author-' + author + '"class="tag-size4"';
-    allAuthorsHTML += authorLinkHTML;
+    // allAuthorsHTML += '<li><a class="tag-size4" href="#author-' + author + '">' + author + '</a></li> ';
+    // const authorLinkHTML = '<li><a href="#author-' + author + '"class="tag-size4"';
+    // allAuthorsHTML += authorLinkHTML;
+
+    allAuthorsData.authors.push({
+      author: author,
+      count: allAuthors[author]
+    });
   }
-  authorsList.innerHTML = allAuthorsHTML;
+  authorsList.innerHTML = templates.authorsListLink(allAuthorsData);
+  console.log(allAuthorsData);
 }
 generatorAuthors();
 
