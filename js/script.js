@@ -120,7 +120,8 @@ function calculateTagsParams(tags) {
   const params = { max: '0', min: '999999' };
   // argumentem będzie all tags, kluczami tagi
   for (let tag in tags) {
-    console.log(tag + ' is used ' + tags[tag] + ' times');
+    // console.log(tag + ' is used ' + tags[tag] + ' times');
+    console.log(`${tag} is used ${tags[tag]} times`);
 
     if (tags[tag] > params.max) {
       params.max = tags[tag];
@@ -200,10 +201,10 @@ function generateTags() {
 
   /* [NEW] find list of tags in right column */
   const tagList = document.querySelector(opt.tagsListSelector);
-  console.log(tagList);
+  // console.log(tagList);
 
   const tagsParams = calculateTagsParams(allTags);
-  console.log('tagsParams:', tagsParams);
+  // console.log('tagsParams:', tagsParams);
 
   /* [NEW] add html from allTags to tagList */
   // tagList.innerHTML = allTags.join(' ');// łączy ele. tablicy w tekst
@@ -229,13 +230,13 @@ function generateTags() {
       count: allTags[tag],
       className: calculateTagClass(allTags[tag], tagsParams)
     });
-    console.log('taglinkHTML', tagLinkHTML);
+    // console.log('taglinkHTML', tagLinkHTML);
     /*[NEW] END LOOP: for each tag in allTags*/
   }
   /*[NEW] add html from allTagsHTML to tagList */
   // tagList.innerHTML = allTagsHTML;
   tagList.innerHTML = templates.tagCloudLink(allTagsData);
-  console.log(allTagsData);
+  // console.log(allTagsData);
 }
 generateTags();
 
@@ -371,10 +372,10 @@ function generatorAuthors() {
 
   /* [NEW] find list of tags in right column */
   const authorsList = document.querySelector(opt.authorsListSelector);
-  console.log(authorsList);
+  // console.log(authorsList);
 
   const authorParams = calculateAuthorParams(allAuthors);
-  console.log(authorParams);
+  // console.log(authorParams);
 
   // let allAuthorsHTML = '';
   const allAuthorsData = { authors: [] };
@@ -391,7 +392,7 @@ function generatorAuthors() {
     });
   }
   authorsList.innerHTML = templates.authorsListLink(allAuthorsData);
-  console.log(allAuthorsData);
+  // console.log(allAuthorsData);
 }
 generatorAuthors();
 
@@ -403,18 +404,18 @@ function authorClickHandler(event) {
 
   /* make new constant named "clickedElement" and give it the value of "this" */
   const clickedElement = this;
-  console.log('Link was clicked! awsome');
+  // console.log('Link was clicked! awsome');
 
   /* make a new constant "href" and read the attribute "href" of the clicked element */
   const href = clickedElement.getAttribute('href');
 
   /* make a new constant "author" and extract author from the "href" constant */
   const author = href.replace('#author-', ''); // zamienia tekst #tag- na punsty ciag znakow
-  console.log(author);
+  // console.log(author);
 
   /* find all tag links with class active */
   const activeAuthorsLinks = clickedElement.querySelectorAll('a.active[href^="#author-"]');// href zaczynajace się od #author
-  console.log(activeAuthorsLinks);
+  // console.log(activeAuthorsLinks);
 
   /* START LOOP: for each active author link */
   for (let activeAuthorLink of activeAuthorsLinks) {
